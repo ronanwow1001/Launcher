@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -166,8 +165,7 @@ namespace ProjectAltis.Forms
             ErrorReporter.Instance.Username = txtUser.Text;
             SaveCredentials(); // Save credentials if necessary
 
-
-            IAccount account = new Account(txtUser.Text, txtPass.Text, LoginConfig.ProjectAltis);
+            IAccount account = new CorporateClashAccount(txtUser.Text, txtPass.Text);
 
             bool isGoodLogin = await Login(account);
 
@@ -223,13 +221,15 @@ namespace ProjectAltis.Forms
 
         public async Task<bool> Login(IAccount account)
         {
+            lblInfo.Text = "Contacting login server...";
+
             var response = await account.Login();
 
             // Make sure a bad response has not been given
             if (response == LoginAPIResponse.Empty)
             {
                 lblInfo.ForeColor = Color.Red;
-                lblInfo.Text = "Failed to contact the login servers.";
+                lblInfo.Text = "Failed to contact the login server.";
                 return LoginAPIResponse.Bad;
             }
 
@@ -238,14 +238,14 @@ namespace ProjectAltis.Forms
                 case LoginAPIResponse.Good:
                     {
                         lblInfo.ForeColor = Color.Green;
-                        lblInfo.Text = response.Reason;
+                        lblInfo.Text = response.FriendlyReason;
 
                         return LoginAPIResponse.Good;
                     }
                 case LoginAPIResponse.Bad:
                     {
                         lblInfo.ForeColor = Color.Red;
-                        lblInfo.Text = response.Reason;
+                        lblInfo.Text = response.FriendlyReason;
 
                         return LoginAPIResponse.Bad;
                     }

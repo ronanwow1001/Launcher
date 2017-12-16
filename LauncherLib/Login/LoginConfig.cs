@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 
 namespace LauncherLib.Login
 {
@@ -11,31 +12,21 @@ namespace LauncherLib.Login
         ///     Initializes a new instance of the <see cref="LoginConfig"/> class.
         /// </summary>
         /// <param name="loginAPI">The login api that web requests will be sent to</param>
-        /// <param name="userParameter">The username parameter for sending a web request to the login api</param>
-        /// <param name="passParameter">The password parameter for sending a web request to the login api</param>
+        /// <param name="postData">The post data. Includes username and or password</param>
         /// <param name="shouldPost"></param>
-        public LoginConfig(Uri loginAPI, string userParameter, string passParameter, bool shouldPost = true)
+        public LoginConfig(Uri loginAPI, FormUrlEncodedContent postData, bool shouldPost = true)
         {
-            UserParameter = userParameter ?? throw new ArgumentNullException(nameof(userParameter));
-            PassParameter = passParameter ?? throw new ArgumentNullException(nameof(passParameter));
+            if (shouldPost && postData == null)
+            {
+                throw new ArgumentNullException(nameof(postData));
+            }
+
+            PostData = postData;
             LoginAPI = loginAPI ?? throw new ArgumentNullException(nameof(loginAPI));
             ShouldPost = shouldPost;
         }
-
-        /// <summary>
-        ///     A default config for Project Altis
-        /// </summary>
-        public static readonly LoginConfig ProjectAltis = new LoginConfig(new Uri("https://projectaltis.com/api/login"), "u", "p");
-
-        /// <summary>
-        ///     The username parameter for sending a web request to the login api
-        /// </summary>
-        internal string UserParameter { get; }
-
-        /// <summary>
-        ///     The password parameter for sending a web request to the login api
-        /// </summary>
-        internal string PassParameter { get; }
+        
+        internal FormUrlEncodedContent PostData;
 
         /// <summary>
         ///     The login api that web requests will be sent to

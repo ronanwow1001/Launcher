@@ -44,7 +44,7 @@ namespace LauncherLib.Login
         public async Task<LoginAPIResponse> Login()
         {
             // Get the login api response
-            LoginAPIResponse response = await Http.GetLoginAPIResponse(this, Config);
+            var response = await Http.GetLoginAPIResponse(this, Config);
 
             // Return LoginAPIResponse.Empty if response is null
             return response ?? LoginAPIResponse.Empty;

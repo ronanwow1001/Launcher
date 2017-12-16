@@ -25,20 +25,20 @@ namespace LauncherLib.Net
         {
             try
             {
-                // Encode all content
-                var values = new Dictionary<string, string>
+                HttpResponseMessage message;
+                if (config.ShouldPost)
                 {
-                    { config.UserParameter, account.Username },
-                    { config.PassParameter, account.Password }
-                };
-
-                var content = new FormUrlEncodedContent(values);
-
-                // Post to server
-                var response = await Client.PostAsync(config.LoginAPI, content);
+                    // Post to server
+                    message = await Client.PostAsync(config.LoginAPI, config.PostData);
+                }
+                else
+                {
+                    // Send a get request
+                    message = await Client.GetAsync(config.LoginAPI);
+                }
 
                 // Get response
-                var responseString = await response.Content.ReadAsStringAsync();
+                var responseString = await message.Content.ReadAsStringAsync();
 
                 // Return as new object
                 return await Task.Run(() =>

@@ -29,31 +29,31 @@ namespace LauncherLib.Login
         ///     Initializes a new instance of the <see cref="LoginAPIResponse"/> class.
         /// </summary>
         /// <param name="status">The response status</param>
-        /// <param name="reason">The response reason</param>
-        /// <param name="additional">The response additional information</param>
-        public LoginAPIResponse(bool status, string reason, string additional)
+        /// <param name="friendlyReason">The response reason</param>
+        /// <param name="token">The response token</param>
+        public LoginAPIResponse(bool status, string friendlyReason, string token)
         {
             Status = status;
-            Reason = reason;
-            Additional = additional;
+            FriendlyReason = friendlyReason;
+            Token = token;
         }
 
         /// <summary>
         ///     The login status
         /// </summary>
-        [JsonProperty]
+        [JsonProperty("status")]
         public bool Status { get; }
 
         /// <summary>
         ///     The reason
         /// </summary>
-        [JsonProperty]
-        public string Reason { get; }
+        [JsonProperty("friendlyreason")]
+        public string FriendlyReason { get; }
 
         /// <summary>
         ///     The additional information
         /// </summary>
-        [JsonProperty]
-        public string Additional { get; }
+        [JsonProperty("token")]
+        public string Token { get; }
     }
 }
