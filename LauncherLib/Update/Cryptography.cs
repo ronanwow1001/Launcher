@@ -15,19 +15,22 @@ namespace LauncherLib.Update
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>System.String.</returns>
-        public static string CalculateSha256(string filePath)
+        public static async Task<string> CalculateSha256(string filePath)
         {
-            var sha256 = SHA256.Create();
-            using (var fileStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            return await Task.Run(() =>
             {
-                var hashValueBytes = sha256.ComputeHash(fileStream);
-                var sb = new StringBuilder();
-                foreach (var x in hashValueBytes)
+                var sha256 = SHA256.Create();
+                using (var fileStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    sb.Append(x.ToString("x2"));
+                    var hashValueBytes = sha256.ComputeHash(fileStream);
+                    var sb = new StringBuilder();
+                    foreach (var x in hashValueBytes)
+                    {
+                        sb.Append(x.ToString("x2"));
+                    }
+                    return sb.ToString();
                 }
-                return sb.ToString();
-            }
+            });
         }
     }
 }

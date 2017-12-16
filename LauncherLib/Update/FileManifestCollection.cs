@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace LauncherLib.Update
@@ -25,10 +27,22 @@ namespace LauncherLib.Update
 
             // Iterate through the individual lines of the manifest
             // and deserialize each line into the Files array
-            for (int i = 0; i < totalElements; i++)
+            Task.Factory.StartNew(() =>
             {
-                Files[i] = JsonConvert.DeserializeObject<FileManifest>(rawManifestArray[i]);
-            }
+                for (int i = 0; i < totalElements; i++)
+                {
+                    try
+                    {
+                        Files[i] = JsonConvert.DeserializeObject<FileManifest>(rawManifestArray[i]);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Failed to deserialize {typeof(FileManifest)}.");
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }).Start();
         }
 
         /// <summary>

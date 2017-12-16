@@ -173,22 +173,11 @@ namespace ProjectAltis.Forms
 
             if (isGoodLogin)
             {
-                // Don't want to block UI Thread
-                // Run updater
-                bool finished = false;
 
                 // Enable progress bar for updating
                 pbDownload.Visible = true;
-                new Task(async () =>
-                {
-                    await PatchFiles();
-                    finished = true;
-                }).Start();
 
-                while (!finished)
-                {
-                    await Task.Delay(200);
-                }
+                await PatchFiles();
 
                 pbDownload.Visible = false;
                 lblNowDownloading.Text = "";
@@ -197,9 +186,10 @@ namespace ProjectAltis.Forms
                 // Time to launch the game
 
                 bool gameFinished = false;
-                new Task(async () =>
+                new Task(() =>
                 {
                     // NOTE: we need to still use Play.LaunchGame for security and code signing certificate purposes.
+                    // TODO: Implement code signing into LauncherLib
                     Play.LaunchGame(txtUser.Text, txtPass.Text, this);
                     gameFinished = true;
                 }).Start();

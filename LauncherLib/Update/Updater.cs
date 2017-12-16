@@ -78,7 +78,6 @@ namespace LauncherLib.Update
             // Get the files that haven't been patched yet
             var unpatchedFiles = await GetUnpatchedFiles(manifest);
 
-
             // Download the unpatched files
             await DownloadUnpatchedFiles(unpatchedFiles);
 
@@ -93,22 +92,23 @@ namespace LauncherLib.Update
         {
             var unpatched = new List<FileManifest>();
 
-            Parallel.ForEach(collection.Files,
-                new ParallelOptions() { MaxDegreeOfParallelism = (int)Math.Round(Environment.ProcessorCount / 2.0) },
-                file =>
-                {
-                    string path = GetCorrectFilePath(file.Filename);
+            var options = new ParallelOptions() { MaxDegreeOfParallelism = (int)Math.Round(Environment.ProcessorCount / 2.0) };
 
-                    // First check if the file exists
-                    // then check if the hashes are the same
-                    if (File.Exists(path) && Cryptography.CalculateSha256(path) == file.Sha256)
-                    {
-                    }
-                    else
-                    {
-                        unpatched.Add(file);
-                    }
-                });
+            Parallel.ForEach(collection.Files, options, async file =>
+            {
+                var path = GetCorrectFilePath(file.Filename);
+
+                // First check if the file exists
+                // then check if the hashes are the same
+                if (File.Exists(path) && await Cryptography.CalculateSha256(path) == file.Sha256)
+                {
+                }
+                else
+                {
+                    unpatched.Add(file);
+                }
+
+            });
 
             return new FileManifestCollection(unpatched.ToArray());
         }

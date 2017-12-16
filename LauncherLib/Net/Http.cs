@@ -41,7 +41,17 @@ namespace LauncherLib.Net
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 // Return as new object
-                return JsonConvert.DeserializeObject<LoginAPIResponse>(responseString);
+                return await Task.Run(() =>
+                {
+                    try
+                    {
+                        return JsonConvert.DeserializeObject<LoginAPIResponse>(responseString);
+                    }
+                    catch (Exception e)
+                    {
+                        return LoginAPIResponse.Empty;
+                    }
+                });
             }
             catch (Exception)
             {
