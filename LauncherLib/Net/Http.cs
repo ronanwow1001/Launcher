@@ -20,8 +20,8 @@ namespace LauncherLib.Net
         /// </summary>
         /// <param name="account">The account credentials</param>
         /// <param name="config">The login configuration</param>
-        /// <returns>A valid <see cref="LoginAPIResponse"/> if successful, otherwise an empty <see cref="LoginAPIResponse"/></returns>
-        internal static async Task<LoginAPIResponse> GetLoginAPIResponse(IAccount account, LoginConfig config)
+        /// <returns>An instance of <typeparam name="T"></typeparam> with deserialized values if successful, otherwise a default instance.</returns>
+        internal static async Task<T> GetLoginAPIResponse<T>(IAccount account, LoginConfig config)
         {
             try
             {
@@ -40,22 +40,12 @@ namespace LauncherLib.Net
                 // Get response
                 var responseString = await message.Content.ReadAsStringAsync();
 
-                // Return as new object
-                return await Task.Run(() =>
-                {
-                    try
-                    {
-                        return JsonConvert.DeserializeObject<LoginAPIResponse>(responseString);
-                    }
-                    catch (Exception e)
-                    {
-                        return LoginAPIResponse.Empty;
-                    }
-                });
+
+                return JsonConvert.DeserializeObject<T>(responseString);
             }
-            catch (Exception)
+            catch
             {
-                return LoginAPIResponse.Empty;
+                return default(T);
             }
         }
 

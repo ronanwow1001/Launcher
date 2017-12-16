@@ -6,6 +6,6 @@ namespace LauncherLib.Login
     {
         string Username { get; }
         string Password { get; }
-        Task<LoginAPIResponse> Login();
+        Task<ILoginAPIResponse> Login();
     }
 }

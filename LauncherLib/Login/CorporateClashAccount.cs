@@ -26,13 +26,6 @@ namespace LauncherLib.Login
 
         internal LoginConfig Config;
 
-        public async Task<LoginAPIResponse> Login()
-        {
-            // Get the login api response
-            var response = await Http.GetLoginAPIResponse(this, Config);
-
-            // Return LoginAPIResponse.Empty if response is null
-            return response ?? LoginAPIResponse.Empty;
-        }
+        public async Task<ILoginAPIResponse> Login() => await Http.GetLoginAPIResponse<CorporateClashLoginResponse>(this, Config);
     }
 }

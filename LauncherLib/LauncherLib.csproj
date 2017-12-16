@@ -48,7 +48,9 @@
     <Compile Include="Exceptions\NullFileManifestException.cs" />
     <Compile Include="Login\Account.cs" />
     <Compile Include="Login\CorporateClashAccount.cs" />
+    <Compile Include="Login\CorporateClashLoginResponse.cs" />
     <Compile Include="Login\IAccount.cs" />
+    <Compile Include="Login\ILoginAPIResponse.cs" />
     <Compile Include="Login\LoginAPIResponse.cs" />
     <Compile Include="Login\LoginConfig.cs" />
     <Compile Include="Net\Http.cs" />

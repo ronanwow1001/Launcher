@@ -41,10 +41,10 @@ namespace LauncherLib.Login
         ///     Logs in this instance of <see cref="Account"/> to the login configs web server.
         /// </summary>
         /// <returns>A valid <see cref="LoginAPIResponse"/> if successful, otherwise an empty <see cref="LoginAPIResponse"/></returns>
-        public async Task<LoginAPIResponse> Login()
+        public async Task<ILoginAPIResponse> Login()
         {
             // Get the login api response
-            var response = await Http.GetLoginAPIResponse(this, Config);
+            var response = await Http.GetLoginAPIResponse<LoginAPIResponse>(this, Config);
 
             // Return LoginAPIResponse.Empty if response is null
             return response ?? LoginAPIResponse.Empty;

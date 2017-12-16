@@ -5,7 +5,7 @@ namespace LauncherLib.Login
     /// <summary>
     ///     Represents a login server response
     /// </summary>
-    public class LoginAPIResponse
+    public class LoginAPIResponse : ILoginAPIResponse
     {
         /// <summary>
         ///     A constant response for a "Good" login
@@ -24,17 +24,17 @@ namespace LauncherLib.Login
         /// </summary>
         [JsonIgnore]
         public static readonly LoginAPIResponse Empty = new LoginAPIResponse(false, "Empty", "Empty");
-
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="LoginAPIResponse"/> class.
         /// </summary>
         /// <param name="status">The response status</param>
         /// <param name="friendlyReason">The response reason</param>
         /// <param name="token">The response token</param>
-        public LoginAPIResponse(bool status, string friendlyReason, string token)
+        public LoginAPIResponse(bool status, string reason, string token)
         {
             Status = status;
-            FriendlyReason = friendlyReason;
+            Reason = reason;
             Token = token;
         }
 
@@ -47,13 +47,14 @@ namespace LauncherLib.Login
         /// <summary>
         ///     The reason
         /// </summary>
-        [JsonProperty("friendlyreason")]
-        public string FriendlyReason { get; }
+        [JsonProperty("reason")]
+        public string Reason { get; }
 
         /// <summary>
-        ///     The additional information
+        ///     The login token
         /// </summary>
         [JsonProperty("token")]
         public string Token { get; }
+
     }
 }

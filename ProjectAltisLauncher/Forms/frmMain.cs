@@ -177,7 +177,9 @@ namespace ProjectAltis.Forms
 
                 await PatchFiles();
 
+                // Updating is over, disable progress bar
                 pbDownload.Visible = false;
+
                 lblNowDownloading.Text = "";
 
                 // Files are updated
@@ -223,37 +225,20 @@ namespace ProjectAltis.Forms
         {
             lblInfo.Text = "Contacting login server...";
 
-            var response = await account.Login();
+            ILoginAPIResponse response = await account.Login();
 
             // Make sure a bad response has not been given
-            if (response == LoginAPIResponse.Empty)
+            if (response == null)
             {
                 lblInfo.ForeColor = Color.Red;
                 lblInfo.Text = "Failed to contact the login server.";
-                return LoginAPIResponse.Bad;
+                return false;
             }
 
-            switch (response.Status)
-            {
-                case LoginAPIResponse.Good:
-                    {
-                        lblInfo.ForeColor = Color.Green;
-                        lblInfo.Text = response.FriendlyReason;
 
-                        return LoginAPIResponse.Good;
-                    }
-                case LoginAPIResponse.Bad:
-                    {
-                        lblInfo.ForeColor = Color.Red;
-                        lblInfo.Text = response.FriendlyReason;
-
-                        return LoginAPIResponse.Bad;
-                    }
-                default:
-                    {
-                        return LoginAPIResponse.Bad;
-                    }
-            }
+            lblInfo.ForeColor = response.Status ? Color.Green : Color.Red;
+            lblInfo.Text = response.Reason;
+            return response.Status;
         }
 
         public async Task PatchFiles()
