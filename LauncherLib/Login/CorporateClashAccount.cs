@@ -22,7 +22,7 @@ namespace LauncherLib.Login
 
         public string Username { get; }
         public string Password { get; }
-        private const string PassParameter = "p";
+        private const string PassParameter = "password";
 
         internal LoginConfig Config;
 

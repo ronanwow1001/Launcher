@@ -3,7 +3,7 @@ Corporate Clash Launcher Source Code
 [![Build status](https://ci.appveyor.com/api/projects/status/x0ocu1eai8w0sqto/branch/master?svg=true)](https://ci.appveyor.com/project/judge2020/launcher/branch/master)
  
 
-This repository contains all launcher source code to launch into Project Altis
+This repository contains all launcher source code to launch into Corporate Clash
 
 ### Info
 * When compiling for production, **ALWAYS** make a release build **NEVER** make a debug build

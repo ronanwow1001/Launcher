@@ -10,6 +10,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using CorporateClash.Core;
 using CorporateClash.Forms.ContentPacks;
+using LauncherLib.Exceptions;
 using LauncherLib.Login;
 using LauncherLib.Play;
 using LauncherLib.Update;
@@ -22,10 +23,9 @@ namespace CorporateClash.Forms
     {
         #region Fields
         private readonly string _currentDir;
-        private readonly Uri _fileApi = new Uri("https://" +
-                                                "project" +
-                                                "altis.com/api/manifest");
+        private readonly Uri _fileApi = new Uri("https://projectaltis.com/api/manifest");
         public ChromiumWebBrowser Browser;
+        private Point _mouseDownPoint = Point.Empty;
         #endregion
         #region Main Form Events
         public FrmMain()
@@ -113,26 +113,26 @@ namespace CorporateClash.Forms
             int nHeightEllipse // Width of ellipse
         );
 
-        private Point mouseDownPoint = Point.Empty;
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseDownPoint = new Point(e.X, e.Y);
+            _mouseDownPoint = new Point(e.X, e.Y);
         }
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDownPoint = Point.Empty;
+            _mouseDownPoint = Point.Empty;
         }
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseDownPoint.IsEmpty)
+            if (_mouseDownPoint.IsEmpty)
             {
                 return;
             }
             if (sender is Form)
             {
                 Form form = sender as Form;
-                form.Location = new Point(form.Location.X + (e.X - mouseDownPoint.X),
-                                form.Location.Y + (e.Y - mouseDownPoint.Y));
+                form.Location = new Point(form.Location.X + (e.X - _mouseDownPoint.X),
+                                form.Location.Y + (e.Y - _mouseDownPoint.Y));
             }
         }
 
@@ -169,15 +169,54 @@ namespace CorporateClash.Forms
 
             IAccount account = new CorporateClashAccount(txtUser.Text, txtPass.Text);
 
-            bool isGoodLogin = await Login(account);
+            await Login(account);
 
-            if (isGoodLogin)
+            ActiveControl = null;
+        }
+
+        public async Task LaunchGame(IAccount account)
+        {
+            string processName = Path.Combine(Directory.GetCurrentDirectory(), "ProjectAltis");
+
+            IGame game = new Game(account, "Project Altis", processName,
+                "https://projectaltis.com/api/gameserver");
+
+            bool success = await game.Run();
+        }
+
+        public async Task Login(IAccount account)
+        {
+            lblInfo.Text = "Contacting login server...";
+
+            ILoginAPIResponse response = await account.Login();
+
+            // Make sure a bad response has not been given
+            if (response == null)
+            {
+                lblInfo.ForeColor = Color.Red;
+                lblInfo.Text = "Failed to contact the login server.";
+                return;
+            }
+
+
+            lblInfo.ForeColor = response.Status ? Color.Green : Color.Red;
+            lblInfo.Text = response.Reason;
+
+
+            if (response.Status)
             {
 
                 // Enable progress bar for updating
                 pbDownload.Visible = true;
 
-                await PatchFiles();
+                try
+                {
+                    await PatchFiles();
+                }
+                catch (NullFileManifestException e)
+                {
+                    Log.Error(e);
+                }
 
                 // Updating is over, disable progress bar
                 pbDownload.Visible = false;
@@ -202,45 +241,11 @@ namespace CorporateClash.Forms
                 }
 
                 btnPlay.Enabled = true;
-
             }
             else
             {
                 btnPlay.Enabled = true;
             }
-
-
-            ActiveControl = null;
-        }
-
-        public async Task LaunchGame(IAccount account)
-        {
-            string processName = Path.Combine(Directory.GetCurrentDirectory(), "ProjectAltis");
-
-            IGame game = new Game(account, "Project Altis", processName,
-                "https://projectaltis.com/api/gameserver");
-
-            bool success = await game.Run();
-        }
-
-        public async Task<bool> Login(IAccount account)
-        {
-            lblInfo.Text = "Contacting login server...";
-
-            ILoginAPIResponse response = await account.Login();
-
-            // Make sure a bad response has not been given
-            if (response == null)
-            {
-                lblInfo.ForeColor = Color.Red;
-                lblInfo.Text = "Failed to contact the login server.";
-                return false;
-            }
-
-
-            lblInfo.ForeColor = response.Status ? Color.Green : Color.Red;
-            lblInfo.Text = response.Reason;
-            return response.Status;
         }
 
         public async Task PatchFiles()

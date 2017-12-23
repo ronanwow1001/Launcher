@@ -46,9 +46,7 @@
             this.pbDownload = new System.Windows.Forms.ProgressBar();
             this.btnContentPacks = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUser
@@ -325,18 +323,6 @@
             this.versionLabel.TabIndex = 24;
             this.versionLabel.Text = "label1";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(793, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(205, 159);
-            this.pictureBox1.TabIndex = 25;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.WaitOnLoad = true;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,7 +340,6 @@
             this.Controls.Add(this.btnCredits);
             this.Controls.Add(this.btnMin);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.pbDownload);
             this.Controls.Add(this.btnPlay);
@@ -380,7 +365,6 @@
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -405,7 +389,6 @@
         private System.Windows.Forms.Button btnContentPacks;
         public System.Windows.Forms.Label lblNowDownloading;
         private System.Windows.Forms.Label versionLabel;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
