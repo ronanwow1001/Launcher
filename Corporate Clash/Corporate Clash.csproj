@@ -179,6 +179,7 @@
     <Compile Include="Forms\ContentPacks\FrmContentChooser.Designer.cs">
       <DependentUpon>FrmContentChooser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormUtils.cs" />
     <Compile Include="Forms\FrmBackgroundChoices.cs">
       <SubType>Form</SubType>
     </Compile>
