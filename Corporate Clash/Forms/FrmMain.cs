@@ -21,6 +21,8 @@ namespace CorporateClash.Forms
 {
     public partial class FrmMain : Form
     {
+        private const string CreditsUrl = "https://github.com/CorporateClash/Launcher/graphs/contributors";
+
         #region Fields
         private readonly string _currentDir;
         private readonly Uri _fileApi = new Uri("https://projectaltis.com/api/manifest");
@@ -387,8 +389,7 @@ namespace CorporateClash.Forms
         private void BtnCredits_Click(object sender, EventArgs e)
         {
             Audio.PlaySoundFile(Audio.Click);
-            FrmCredits cred = new FrmCredits();
-            cred.ShowDialog();
+            Log.TryOpenUrl(CreditsUrl);
             ActiveControl = null;
         }
         #endregion

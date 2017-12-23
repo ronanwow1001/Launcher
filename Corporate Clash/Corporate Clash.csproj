@@ -192,12 +192,6 @@
     <Compile Include="Forms\ContentPacks\FrmContentPacks.Designer.cs">
       <DependentUpon>FrmContentPacks.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmCredits.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmCredits.Designer.cs">
-      <DependentUpon>FrmCredits.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,9 +221,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ContentPacks\FrmContentPacks.resx">
       <DependentUpon>FrmContentPacks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmCredits.resx">
-      <DependentUpon>FrmCredits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
