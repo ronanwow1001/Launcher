@@ -42,7 +42,7 @@
             this.btnOptions = new System.Windows.Forms.Button();
             this.btnDiscord = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnMin = new System.Windows.Forms.Button();
+            this.btnMinus = new System.Windows.Forms.Button();
             this.pbDownload = new System.Windows.Forms.ProgressBar();
             this.btnContentPacks = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -246,7 +246,7 @@
             // btnExit
             // 
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
-            this.btnExit.BackgroundImage = global::CorporateClash.Properties.Resources.cancel;
+            this.btnExit.BackgroundImage = global::CorporateClash.Properties.Resources.exit;
             this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -263,25 +263,25 @@
             this.btnExit.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.btnExit.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
-            // btnMin
+            // btnMinus
             // 
-            this.btnMin.BackColor = System.Drawing.Color.Transparent;
-            this.btnMin.BackgroundImage = global::CorporateClash.Properties.Resources.minus;
-            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnMin.FlatAppearance.BorderSize = 0;
-            this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMin.ForeColor = System.Drawing.Color.Transparent;
-            this.btnMin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMin.Location = new System.Drawing.Point(944, 1);
-            this.btnMin.Name = "btnMin";
-            this.btnMin.Size = new System.Drawing.Size(24, 24);
-            this.btnMin.TabIndex = 19;
-            this.btnMin.UseVisualStyleBackColor = false;
-            this.btnMin.Click += new System.EventHandler(this.BtnMin_Click);
-            this.btnMin.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.btnMin.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            this.btnMinus.BackColor = System.Drawing.Color.Transparent;
+            this.btnMinus.BackgroundImage = global::CorporateClash.Properties.Resources.minus;
+            this.btnMinus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnMinus.FlatAppearance.BorderSize = 0;
+            this.btnMinus.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnMinus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinus.ForeColor = System.Drawing.Color.Transparent;
+            this.btnMinus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnMinus.Location = new System.Drawing.Point(944, 1);
+            this.btnMinus.Name = "btnMinus";
+            this.btnMinus.Size = new System.Drawing.Size(24, 24);
+            this.btnMinus.TabIndex = 19;
+            this.btnMinus.UseVisualStyleBackColor = false;
+            this.btnMinus.Click += new System.EventHandler(this.BtnMin_Click);
+            this.btnMinus.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.btnMinus.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // pbDownload
             // 
@@ -338,7 +338,7 @@
             this.Controls.Add(this.btnTheme);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.btnCredits);
-            this.Controls.Add(this.btnMin);
+            this.Controls.Add(this.btnMinus);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.pbDownload);
@@ -384,7 +384,7 @@
         private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Button btnDiscord;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.Button btnMinus;
         public System.Windows.Forms.ProgressBar pbDownload;
         private System.Windows.Forms.Button btnContentPacks;
         public System.Windows.Forms.Label lblNowDownloading;

@@ -148,7 +148,7 @@ namespace CorporateClash.Forms
         #region Minimize Button
         private void BtnMin_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             WindowState = FormWindowState.Minimized;
             ActiveControl = null;
         }
@@ -156,7 +156,7 @@ namespace CorporateClash.Forms
         #region Play Button
         private async void BtnPlay_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             if (string.IsNullOrEmpty(txtUser.Text))
             {
                 Log.TryOpenUrl("https://projectaltis.com/register");
@@ -215,13 +215,15 @@ namespace CorporateClash.Forms
                 }
                 catch (NullFileManifestException e)
                 {
-                    Log.Error(e);
+                    Log.Error(e.Message);
                 }
+                finally
+                {
+                    // Updating is over, disable progress bar
+                    pbDownload.Visible = false;
 
-                // Updating is over, disable progress bar
-                pbDownload.Visible = false;
-
-                lblNowDownloading.Text = "";
+                    lblNowDownloading.Text = "";
+                }
 
                 // Files are updated
                 // Time to launch the game
@@ -324,7 +326,7 @@ namespace CorporateClash.Forms
         #region Site Button
         private void BtnOfficialSite_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             Process.Start("https://www.projectaltis.com/");
             ActiveControl = null;
         }
@@ -332,7 +334,7 @@ namespace CorporateClash.Forms
         #region Discord Button
         private void BtnDiscord_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             Log.TryOpenUrl("https://discord.me/ttprojectaltis");
             ActiveControl = null;
         }
@@ -340,7 +342,7 @@ namespace CorporateClash.Forms
         #region Content Packs
         private void BtnContentPacks_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             btnContentPacks.BackgroundImage = Properties.Resources.contentpacks_d;
             FrmContentPacks contentPack = new FrmContentPacks();
             contentPack.ShowDialog(this);
@@ -350,7 +352,7 @@ namespace CorporateClash.Forms
         #region Change Theme
         private void BtnChangeBg_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             FrmBackgroundChoices bg = new FrmBackgroundChoices();
             bg.ShowDialog();
             if (!Settings.Instance.WantRandomBackgrounds)
@@ -365,7 +367,7 @@ namespace CorporateClash.Forms
         #region Options Button
         private void BtnOptions_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             FrmOptions op = new FrmOptions();
             op.ShowDialog();
             // Apply user settings
@@ -384,7 +386,7 @@ namespace CorporateClash.Forms
         #region Credits
         private void BtnCredits_Click(object sender, EventArgs e)
         {
-            Audio.PlaySoundFile("sndclick");
+            Audio.PlaySoundFile(Audio.Click);
             FrmCredits cred = new FrmCredits();
             cred.ShowDialog();
             ActiveControl = null;
@@ -401,7 +403,7 @@ namespace CorporateClash.Forms
             {
                 btnName = "create";
             }
-            btnSender.BackgroundImage = Background.ImageChooser(btnName, "MouseEnter");
+            btnSender.BackgroundImage = Background.GetButtonImage(btnName, "MouseEnter");
         }
         private void Button_MouseLeave(object sender, EventArgs e)
         {
@@ -413,7 +415,7 @@ namespace CorporateClash.Forms
             {
                 btnName = "create";
             }
-            btnSender.BackgroundImage = Background.ImageChooser(btnName, "MouseLeave");
+            btnSender.BackgroundImage = Background.GetButtonImage(btnName, "MouseLeave");
         }
         private void Button_MouseDown(object sender, MouseEventArgs e)
         {
@@ -425,7 +427,7 @@ namespace CorporateClash.Forms
             {
                 btnName = "create";
             }
-            btnSender.BackgroundImage = Background.ImageChooser(btnName, "MouseDown");
+            btnSender.BackgroundImage = Background.GetButtonImage(btnName, "MouseDown");
         }
         private void Button_MouseUp(object sender, MouseEventArgs e)
         {
@@ -437,7 +439,7 @@ namespace CorporateClash.Forms
             {
                 btnName = "create";
             }
-            btnSender.BackgroundImage = Background.ImageChooser(btnName, "MouseUp");
+            btnSender.BackgroundImage = Background.GetButtonImage(btnName, "MouseUp");
         }
         #endregion
         #region Play on Enter
