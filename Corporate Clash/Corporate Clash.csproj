@@ -168,11 +168,8 @@
     <Compile Include="BrowserLifeSpanHandler.cs" />
     <Compile Include="Core\AuthenticodeTools.cs" />
     <Compile Include="Core\Background.cs" />
-    <Compile Include="Core\Credentials.cs" />
-    <Compile Include="Core\Data.cs" />
     <Compile Include="Core\DateTimeExtensions.cs" />
     <Compile Include="Core\ErrorReporter.cs" />
-    <Compile Include="Core\FileUpdater.cs" />
     <Compile Include="Core\RedistCheck.cs" />
     <Compile Include="Core\UwpHelper.cs" />
     <Compile Include="Enums\FileTypes.cs" />
@@ -207,12 +204,9 @@
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Hashing.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Enums\LogType.cs" />
     <Compile Include="Manifests\SanityCheckAPIResonse.cs" />
-    <Compile Include="Manifests\loginAPIResponse.cs" />
-    <Compile Include="Manifests\ManifestJson.cs" />
     <Compile Include="Forms\FrmOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,32 +323,32 @@
   <ItemGroup>
     <PublishFile Include="Resources\create.png">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Resources\create_d.png">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Resources\create_h.png">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
