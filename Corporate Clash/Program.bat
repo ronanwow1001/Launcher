@@ -1,2 +1,2 @@
 @echo off
-Program.py ppython.exe
+Program.exe ppython.exe
