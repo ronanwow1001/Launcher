@@ -1,2 +1,2 @@
 @echo off
-Corporate Clash Launcher.sln
+Corporate Clash Launcher.suo
